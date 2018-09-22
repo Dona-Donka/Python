@@ -8,6 +8,9 @@ class RockPaperWindow(Frame):
         Frame.__init__(self, master, *args, **kwargs)
         self.initWindow()
 
+    def userExit(self):
+        exit()
+
     def displayTypes(self, userType):
         foo = ['Rock', 'Paper', 'Scissors']
 
@@ -22,21 +25,35 @@ class RockPaperWindow(Frame):
 
         self.gamesEngine(userType, self.pcType)
 
+    userPoints = 0
+    pcPoints = 0
     def gamesEngine(self, userType, pcType):
         self.winText = ''
 
+
         if userType == 'Rock' and pcType == 'Paper':
-            self.winText = "You lose, papper beats rock"
-
-        elif userType == 'Paper' and pcType == 'Rock':
-            self.winText = "You win, paper beats rock"
-
-        elif userType == 'Scissors' and pcType == 'Rock':
-            self.winText = "You lose, rock beats scissors"
+            self.winText = "You lose, paper beats rock"
+            self.pcPoints = self.pcPoints + 1
 
         elif userType == 'Rock' and pcType == 'Scissors':
             self.winText = "You win, rock beats scissors"
+            self.userPoints = self.userPoints + 1
 
+        elif userType == 'Paper' and pcType == 'Rock':
+            self.winText = "You win, paper beats rock"
+            self.userPoints = self.userPoints + 1
+
+        elif userType == 'Paper' and pcType == 'Scissors':
+            self.winText = "You lose, scissors beats paper"
+            self.pcPoints = self.pcPoints + 1
+
+        elif userType == 'Scissors' and pcType == 'Rock':
+            self.winText = "You lose, rock beats scissors"
+            self.pcPoints = self.pcPoints + 1
+
+        elif userType == 'Scissors' and pcType == 'Paper':
+            self.winText = "You win, scissors beats paper"
+            self.userPoints = self.userPoints + 1
 
         else:
             self.winText = "You must chose Rock, Paper os Scissors!"
@@ -44,6 +61,12 @@ class RockPaperWindow(Frame):
 
         self.winDisplayLabel.delete(0, END)
         self.winDisplayLabel.insert(0, self.winText)
+
+        self.userPointsDisplayLabel.delete(0, END)
+        self.userPointsDisplayLabel.insert(0, self.userPoints)
+
+        self.pcPointsDisplayLabel.delete(0, END)
+        self.pcPointsDisplayLabel.insert(0, self.pcPoints)
 
     def setRock(self):
         userType = 'Rock'
@@ -73,14 +96,26 @@ class RockPaperWindow(Frame):
         self.pcDisplayLabel.grid(row=1, column=11, columnspan=7)
         self.pcDisplayLabel.insert(0, "COMPUTER TYPE")
 
+        self.userPointsDisplayLabel = Entry(self, relief=RAISED, justify=RIGHT)
+        self.userPointsDisplayLabel.grid(row=2, column=0, columnspan=7)
+        self.userPointsDisplayLabel.insert(0, "0")
+
+        self.pcPointsDisplayLabel = Entry(self, relief=RAISED, justify=RIGHT)
+        self.pcPointsDisplayLabel.grid(row=2, column=11, columnspan=7)
+        self.pcPointsDisplayLabel.insert(0, "0")
+
         rockButton = Button(self, text="ROCK", command=lambda: self.setRock())
-        rockButton.grid(row=2, column=2)
+        rockButton.grid(row=3, column=2)
 
         paperButton = Button(self, text="PAPER", command=lambda: self.setPaper())
-        paperButton.grid(row=2, column=8)
+        paperButton.grid(row=3, column=8)
 
         scissorsButton = Button(self, text="SCISSORS", command=lambda: self.setScissors())
-        scissorsButton.grid(row=2, column=16)
+        scissorsButton.grid(row=3, column=16)
+
+        exitButton = Button(self, text="EXIT", command=lambda: self.userExit())
+        exitButton.grid(row=5, column=4)
+
 
 
 root = Tk()
