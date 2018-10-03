@@ -27,9 +27,9 @@ class RockPaperWindow(Frame):
 
     userPoints = 0
     pcPoints = 0
+
     def gamesEngine(self, userType, pcType):
         self.winText = ''
-
 
         if userType == 'Rock' and pcType == 'Paper':
             self.winText = "You lose, paper beats rock"
@@ -54,6 +54,7 @@ class RockPaperWindow(Frame):
         elif userType == 'Scissors' and pcType == 'Paper':
             self.winText = "You win, scissors beats paper"
             self.userPoints = self.userPoints + 1
+
 
         else:
             self.winText = "You must chose Rock, Paper os Scissors!"
@@ -116,9 +117,10 @@ class RockPaperWindow(Frame):
         exitButton = Button(self, text="EXIT", command=lambda: self.userExit())
         exitButton.grid(row=5, column=4)
 
-
-
-root = Tk()
-root.title("ROCK-PAPER-SCISSORS")
-app = RockPaperWindow(root)
-root.mainloop()
+print "hello"
+if __name__ == "__main__":
+    root = Tk()
+    root.title("ROCK-PAPER-SCISSORS")
+    #root.configure(background="red")
+    app = RockPaperWindow(root)
+    root.mainloop()
